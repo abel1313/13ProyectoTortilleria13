@@ -1,0 +1,10 @@
+.cocontenedorDireccionDiferente{
+    width: 80%;
+    height: 80%;
+    background-color: #004085;
+    position: absolute;
+    bottom: 16.8%;
+    left: 10%;
+    box-shadow: 2px 2px 15px 2px #EEC9C1;
+    border-radius: 0.8em;
+}

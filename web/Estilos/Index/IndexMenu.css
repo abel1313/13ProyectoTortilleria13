@@ -1,0 +1,35 @@
+*{
+    padding: 0;
+    margin: 0;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+body{
+    background-color: #C3CFD9 !important; 
+/*Lo agrege a ver que cambia*/
+}
+.contenedorPrincipal{
+    width: 100vw;
+    background-color: #C3CFD9 !important; 
+    position: relative;
+    
+}
+.contenedorHeader{
+    width: 100vw;
+    height: 8.3vh;
+    position: absolute;
+    top: 0px;
+}
+.contenedorBody{
+    width: 100vw;
+    position: absolute;
+    top: 56px;
+/*    background-color: #fef4d3 !important;*/
+    
+}
+.divTablaUsuario{
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 40%;
+}

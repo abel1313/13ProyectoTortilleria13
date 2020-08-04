@@ -1,0 +1,97 @@
+.registrarUsuario{
+    width: 100%; 
+    height: 100%;
+    position: fixed; 
+    z-index: 9999;
+    opacity: .8;
+    left: 0; 
+    top: 0px;
+    display: none;
+    background: #25526D;  /* fallback for old browsers */
+
+}
+.divRegistrarUsuario{
+ width: 60em;
+ background-color: #25526D !important;
+ margin-top: 6em;
+ margin-left: auto;
+ margin-right: auto;
+ opacity: 1;
+ border: 1em;
+ color: #000;
+}
+.divRegistrarUsuario:hover{
+    box-shadow:  1px 1px 15px 1px #000;   
+}
+.trmReg:hover{
+    color: #000;
+}
+.cancerarRegistro:hover{
+    color: #000;
+}
+.contenedorPrincipal{
+    width: 98vw;
+    height: 100vh;
+
+  
+}
+.contenedorHeader{
+   font-family: 'Anton', sans-serif;
+   width: 100vw;
+   height: 15vh;
+   background-color: #C3CFD9;
+}
+.contenedorHeader header{
+    text-align: center;
+    padding: 15px;
+    
+}
+.contenedorBody{
+  width: 100%;
+   height: 70%;
+   background-color: #004085;
+}
+.contenedorLogin{
+    width: 25%;
+    min-width: 15%;
+    height:  100%;
+    float: right;
+    background-color: #C3CFD9;
+    box-shadow: -3px 2px 13px 7px #121416;
+}
+.contenedorLogin:hover{
+    box-shadow:  1px 1px 10px 1px #6610f2;
+    transition: 2.5s;
+}
+.contenedorLogin legend{
+       font-family: 'Anton', sans-serif;
+        text-align: center;
+    padding: 15px;
+}
+.btnRegistrar > div > div button[type='submit']{
+/*    color: red !important;*/
+    margin-left: 3em;
+}
+.contenedorDialogo{
+    
+    width: 75%;
+    height:  100%;
+    float: left;
+    background-color: white;
+}
+.img-Tort{
+    width: 95%;
+    height: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    background-image: url('../../Imagenes/login.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position-y: 50%;
+    margin-top: 3%;
+}
+.contenedorFooter{
+       width: 100vw;
+   height: 15%;
+   background-color: #C3CFD9;
+}
