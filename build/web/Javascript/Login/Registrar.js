@@ -24,7 +24,7 @@ $(() => {
             Nombre: {required: true, maxlength: 20, minlength: 3},
             Paterno: {required: true, maxlength: 25, minlength: 5},
             Materno: {required: true, maxlength: 25, minlength: 1},
-            Telefono: {required: true, maxlength: 10, minlength: 0},
+            Telefono: {maxlength: 10, minlength: 0},
             Nacimiento: {required: true},
             Sexo: {selectSexo: "sex"},
             Correo: {maxlength: 25, minlength: 5,
@@ -46,12 +46,20 @@ $(() => {
         },
         submitHandler: function (form) {
 
-
+    $(".trmReg").prop("disabled",true);
+    $(".trmReg").removeClass("trmReg");
+    $(".trmReg").addClass("buttonload");
+    $(".iRegistrarse").addClass("fa fa-spinner");
+    $(".iRegistrarse").addClass("fa-spin");
 
 //   alert($(form).serialize());
-//           return false;
+           return false;
 // 
 // 
+    
+        setTimeout(function ()
+    {
+    
             $.ajax({
                 type: 'post',
                 url: '../../DatosUsuario',
@@ -64,7 +72,7 @@ $(() => {
 
                 }
             });
-
+    }, 3000);
 
 
         }

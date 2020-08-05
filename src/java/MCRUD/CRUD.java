@@ -27,4 +27,5 @@ public interface CRUD <T>
     public T mostrar();
     public T agregar(T agregar);
     public boolean agregarDatos(T t);
+    public boolean validarCorreo(String correo);
 }

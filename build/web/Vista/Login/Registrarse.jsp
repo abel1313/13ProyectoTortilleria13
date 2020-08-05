@@ -29,16 +29,10 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <!--        <link href="../../Estilos/Login/Login.css" rel="stylesheet" type="text/css"/>-->
 
-
-
-
         <title>Registrarse</title>
 
     </head>
     <body>
-
-
-
 
         <div class="contenedorPrincipal">
 
@@ -162,21 +156,21 @@
 
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <div class="form-group"><label for="nombre">Nombre</label>
+                                        <div class="form-group"><label for="nombre">Nombre*</label>
                                             <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre" name="Nombre">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <div class="form-group"><label for="paterno">Apellido Paterno</label>
+                                        <div class="form-group"><label for="paterno">Apellido Paterno*</label>
                                             <input type="text" class="form-control" id="paterno" name="Paterno" placeholder="Ingrese Apellido Paterno">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
-                                        <div class="form-group"><label for="materno">Apellido Materno</label>
+                                        <div class="form-group"><label for="materno">Apellido Materno*</label>
                                             <input type="text" class="form-control" id="materno" name="Materno" placeholder="Ingrese Apellido Materno">
                                         </div>
                                     </div>
@@ -188,7 +182,7 @@
 
                                 <div class="col-3">
                                     <div class="form-group">
-                                        <div class="form-group"><label>Fecha de nacimiento</label>
+                                        <div class="form-group"><label>Fecha de nacimiento*</label>
                                             <input type="date" class="form-control" id="nacimiento" name="Nacimiento">
                                         </div>
                                     </div>
@@ -202,7 +196,7 @@
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
-                                        <label for="exampleFormControlSelect1">Seleccione sexo</label>
+                                        <label for="exampleFormControlSelect1">Seleccione sexo*</label>
                                         <select class="form-control" id="exampleFormControlSelect1" name="Sexo">
                                             <option value="sex">Seleccione sexo</option>
                                             <option>Hombre</option>
@@ -213,7 +207,7 @@
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
-                                        <div class="form-group"><label for="correo">Ingrese su correo</label>
+                                        <div class="form-group"><label for="correo">Correo</label>
                                             <input type="email" class="form-control" id="correo" name="Correo" placeholder="Ingrese su correo">
                                         </div>
                                     </div>
@@ -228,15 +222,15 @@
                             <div class="row">
 
                                 <div class="col-3">
-                                    <div class="form-group"><label for="estado">País</label>
+                                    <div class="form-group"><label for="estado">País*</label>
                                         <select class="form-control col-md-12 mx-auto BoxText" id="pais" name="Pais" >
-                                            <option value="pais">Seleccione País</option>
+                                            <option value="pais">Seleccione País*</option>
                                             <option selected>Mexico</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-3">
-                                    <div class="form-group"><label for="estado">Estádo</label>
+                                    <div class="form-group"><label for="estado">Estádo*</label>
                                         <select class="form-control col-md-12 BoxText" id="estado" name="Estado">
                                             <option value="estado">Seleccione Estádo</option>
                                             <%       String municipios[] = {"Ciudad de Mexico", "Aguascalientes", "Baja California", "Baja California Sur",
@@ -257,7 +251,7 @@
                                 <div class="col-3">
                                     <div class="form-group">
 
-                                        <div class="form-group"><label for="municipio">Municipio</label>
+                                        <div class="form-group"><label for="municipio">Municipio*</label>
                                             <input type="text" class="form-control" id="municipio" name="Municipio" placeholder="Ingrese su municipio">
                                         </div>
 
@@ -265,7 +259,7 @@
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
-                                        <div class="form-group"><label for="calle">Calle</label>
+                                        <div class="form-group"><label for="calle">Calle*</label>
                                             <input type="text" class="form-control" id="calle" name="Calle" placeholder="Ingrese su calle">
                                         </div>
                                     </div>
@@ -277,14 +271,14 @@
 
                                 <div class="col-3">
                                     <div class="form-group">
-                                        <div class="form-group"><label for="colonia">Colonia</label>
+                                        <div class="form-group"><label for="colonia">Colonia*</label>
                                             <input type="type" class="form-control" id="colonia" name="Colonia" placeholder="Ingrese su colonia">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-3">
                                     <div class="form-group">
-                                        <div class="form-group"><label for="postal">código postal</label>
+                                        <div class="form-group"><label for="postal">código postal*</label>
                                             <input type="text" class="form-control" id="postal" name="Postal" placeholder="Ingrese su codigo postal">
                                         </div>
                                     </div>
@@ -309,7 +303,10 @@
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-info trmReg">Terminar Registro</button>
+                                    
+                                    <button type="submit" class="btn btn-info trmReg">
+                                         <i class=" iRegistrarse"></i> Terminar Registro
+                                    </button>
                                 </div>
                             </div>
                             <div class="col-6">

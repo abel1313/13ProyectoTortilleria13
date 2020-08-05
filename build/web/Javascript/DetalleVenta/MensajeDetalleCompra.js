@@ -16,7 +16,9 @@ $(()=>{
         });
         
         $(".cancelarEnvioDetalle").click(function(){
+            
             $(".clienteCompra").hide();
+            $(".divTablaDetalle").show();
         });
         
         

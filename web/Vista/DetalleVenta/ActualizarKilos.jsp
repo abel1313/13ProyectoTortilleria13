@@ -34,7 +34,7 @@
     </div>
     <%                                     for (int i = 0; i < prod.size(); i++) {
             Producto pr = prod.get(i);
-            if (pr.getExistencias_Producto() <= 5) {
+            if (pr.getExistencias_Producto() <= 15) {
     %>
     <div class="row">
 
@@ -46,7 +46,7 @@
                         <div class="col-12">
                             <div class="form-group"><label for="actualizarProducto" id="errorCantidad"></label>
                                 <input type="text" class="form-control" name="" id="actualizarProducto" placeholder="Actualizar producto">
-                                <button class="btn btn-dark btn-block">Actualizar producto</button>
+                                <button class="btn btn-dark btn-block actualozaProducto">Actualizar producto</button>
                             </div>
                         </div>
                     </div>

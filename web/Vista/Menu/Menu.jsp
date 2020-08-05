@@ -88,7 +88,8 @@
             <%
     }
 
-                if (usuarioSession.getRolUsuario().getPermisos().contains(9)) {
+                if (usuarioSession.getRolUsuario().getPermisos().contains(9)&& 
+            (usuarioSession.getRolUsuario().getId_RolUduario() == 1||usuarioSession.getRolUsuario().getId_RolUduario() == 3) ) {
             %>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

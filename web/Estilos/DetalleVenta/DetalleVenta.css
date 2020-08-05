@@ -43,10 +43,10 @@ background-color: #838282 !important;
 
 }
 .cerrarClientes{
-    margin-left: 30em;
+    margin-left: 23em;
 }
 .contCliente{
-    width: 75em;
+    width: 60em;
     height: 35em;
     margin-left: auto;
     margin-right: auto;
@@ -59,7 +59,9 @@ background-color: #838282 !important;
     overflow-x: hidden;
 }
 .TodosClientes{
-
+    background-color: #25526D !important;
+    
+       
 }
 .nuev{
     
@@ -73,7 +75,7 @@ background-color: #838282 !important;
     left: 0; 
     top: 0px;
     display: none;
-    background: white;  /* fallback for old browsers */
+    background: #25526D;  /* fallback for old browsers */
 
 } 
 .AgregarClienteDetalle{
@@ -85,7 +87,7 @@ background-color: #838282 !important;
     opacity: .8;
     left: 0; 
     top: 0px;
-    background: white;  /* fallback for old browsers */
+    background: #25526D;  /* fallback for old browsers */
 }  
 .clienteCompra{
     width: 100%; 
@@ -96,13 +98,13 @@ background-color: #838282 !important;
     opacity: .8;
     left: 0; 
     top: 3.5em;
-    background: white; 
+    background: #25526D; 
 } 
 .contMensajeDetalle
 {
     width: 40%;
     height: 30%;
-    background-color: #898989;
+    background-color: #25526D;
     border-radius: 0.8em;
     margin-left: auto;
     margin-right: auto;
@@ -141,7 +143,7 @@ background-color: #838282 !important;
     margin-right: auto;
 
     margin-top: 3.5em;
-    background-color: #C3CFD9 !important; 
+    background: #25526D !important; 
 /*    Lo agrege nuevo*/
     box-shadow: 2px 2px 15px 2px #EEC9C1;
     border-radius: 0.3em;

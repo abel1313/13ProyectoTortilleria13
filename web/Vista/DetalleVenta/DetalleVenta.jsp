@@ -31,14 +31,14 @@
         session.setAttribute("productoDisponible", pro);
 
         Venta ve = (Venta) session.getAttribute("venta");
-
+System.out.println(usuarioSession.getClienteUsuario().getId_Cliente());
 %>
 
 
 <div class="contDetalle">
 
-    <%if (ve.getClienteVenta().getId_Cliente() == 0) {
-
+    <%
+        if (usuarioSession.getClienteUsuario().getId_Cliente() == 63) {
     %>
     <div class="divExisteCliente">
 
@@ -56,7 +56,8 @@
             </div>
         </div> 
     </div>   
-    <%        }
+    <%    
+        }
     %>
 
 
@@ -83,7 +84,7 @@
         </div>
         <div class="col-3">
             <div class="form-group">
-                <label for="cantidadTortillas">cantidad </label>
+                <label for="cantidadTortillas" id="cantTor">cantidad </label>
                 <input type="text" class="form-control col-12" name="cantidadTortillas" id="cantidadTortillas" placeholder="Ingrese cantidad"/>
 
             </div>
@@ -129,9 +130,36 @@
                     }
                 %>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>
+                        <%
+                            if (ve.getDetalleVenta().size() > 0 && ve.getId_Venta() == 0 && usuarioSession.getRolUsuario().getNombre_RolUsuario().equals("Administrador")) {
+                        %>
+                        <button type="button" class="btn btn-info realizarVenta" value="realizarVenta">Agregar</button>
+                        <%
+                            }
+                        %>
+                        <%
+                            if (ve.getDetalleVenta().size() > 0 && ve.getId_Venta() == 0 && ve.getClienteVenta().getId_Cliente() != 0) {
+                        %>
+                        <button type="button" class="btn btn-info realizarCOmpraDomicilio" value="realizarVentaDomicilio">Comprar</button>
+                        <%
+                            }
+                        %> 
+                                                <%
+                            if (ve.getDetalleVenta().size() > 0) {
+                        %>
+                        <button type="button" class="btn btn-info" id="nuevaVenta">Nueva Venta</button>
+                        <%
+                            }
+                        %>
+                    </td>
+                    <td>
+
+                    </td>
+                    <td>
+
+
+                    </td>
                     <td></td>
 
                     <td>Total $ <%=(ve.getTotal_Venta())%></td>
@@ -139,25 +167,10 @@
             </tbody>
         </table>
     </div>
-    <%
-        if (ve.getDetalleVenta().size() > 0 && ve.getId_Venta() == 0 && usuarioSession.getRolUsuario().getNombre_RolUsuario().equals("Administrador")) {
-    %>
-    <button type="button" class="btn btn-info realizarVenta" value="realizarVenta">Agregar</button>
 
-    <%
-        }
-        if (ve.getDetalleVenta().size() > 0) {
-    %>
-    <button type="button" class="btn btn-info" id="nuevaVenta">Nueva Venta</button>
+    
 
-    <%
-        }
-        if (ve.getDetalleVenta().size() > 0 && ve.getId_Venta() == 0) {
-    %>
-    <button type="button" class="btn btn-info realizarCOmpraDomicilio" value="realizarVentaDomicilio">Comprar</button>
-    <%
-        }
-    %>  
+ 
 
 </div>
 

@@ -124,7 +124,7 @@ public class ConsultaUsuario implements UsuarioDAO {
             rs = ps.executeQuery();
             if (rs.next()) {
                 int conteo = rs.getInt("cont");
-                if (conteo != 15) {
+                if (conteo != 16) {
                     ps = conexion.prepareStatement(sqlCliente);
                     ps.setString(1, usr.getPersonaUsuario().getCorreo_Persona());
                     rs = ps.executeQuery();
@@ -135,7 +135,7 @@ public class ConsultaUsuario implements UsuarioDAO {
                         usr.getClienteUsuario().getPersonaCliente().setTelefono_Persona(usr.getPersonaUsuario().getTelefono_Persona());
                     }
                 }
-                 if (conteo == 15) {
+                 if (conteo == 16) {
                      System.out.println("ENtro aqui");
                      String sqlSinDatos = "SELECT c.id_Cliente, \n"
                              + "p.nombre_Persona,p.apellidoPaterno_Persona,p.apellidoMaterno_Persona,p.telefono_Persona \n"
@@ -148,7 +148,7 @@ public class ConsultaUsuario implements UsuarioDAO {
                     ps.setString(2, "null");
                     rs = ps.executeQuery();
                     if (rs != null && rs.next()) {
-                        System.out.println("Llego  aqui "+rs.getInt(1)+ " "+rs.getString(2)+" "+rs.getString(3));
+                        
                         usr.getClienteUsuario().setId_Cliente(rs.getInt(1));
                         usr.getClienteUsuario().getPersonaCliente().setNombre_Persona(rs.getString(2));
                         usr.getClienteUsuario().getPersonaCliente().setTelefono_Persona(rs.getString(5));
@@ -283,10 +283,9 @@ public class ConsultaUsuario implements UsuarioDAO {
         try {
             conDB = new ConexionDB();
             conexion = conDB.conexionDB();
-            String sqlCorreoUsuario = "SELECT u2.id_Usuario\n"
-                    + "FROM Usuario u2 \n"
-                    + "INNER JOIN Persona p \n"
-                    + "ON p.id_Persona = u2.id_PersonaFK WHERE p.correo_Persona = ?";
+            String sqlCorreoUsuario = "SELECT p.id_Persona \n" +
+"                    FROM  Persona p\n" +
+"                    WHERE p.correo_Persona = ?";
 
             ps = conexion.prepareStatement(sqlCorreoUsuario);
             ps.setString(1, correo);

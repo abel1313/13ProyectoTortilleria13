@@ -298,4 +298,38 @@ public class ConsultaCliente implements ClienteDAO {
         }
     }
 
+    @Override
+    public boolean validarCorreo(String correo) {
+                try {
+            conDB = new ConexionDB();
+            conexion = conDB.conexionDB();
+            String sqlCorreoUsuario = "SELECT p.id_Persona \n" +
+"                    FROM Persona p \n" +
+"                    WHERE p.correo_Persona = ?";
+
+            ps = conexion.prepareStatement(sqlCorreoUsuario);
+            ps.setString(1, correo);
+            rs = ps.executeQuery();
+            if (rs != null && rs.next()) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Error Agregar Usuario Consulta Usuario " + ex.getMessage());
+            Logger.getLogger(ConsultaUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            try {
+                ps.close();
+                rs.close();
+                conexion.close();
+            } catch (SQLException ex) {
+                System.out.println("error cerrar conexiones ConsultaCliente " + ex.getMessage());
+                Logger.getLogger(ConsultaCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
 }

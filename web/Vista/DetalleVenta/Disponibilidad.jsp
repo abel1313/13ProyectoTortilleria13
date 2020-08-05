@@ -97,7 +97,7 @@ Venta vek =(Venta)session.getAttribute("venta");
                              %>
                          </div>       
                      </div>
-    
+
 
 
 <%

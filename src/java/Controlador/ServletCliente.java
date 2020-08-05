@@ -13,6 +13,7 @@ import Modelo.Direccion;
 import Modelo.Usuario;
 import Modelo.Venta;
 import ModeloDAO.ClienteDAO;
+import ModeloDAO.UsuarioDAO;
 import ModeloDAO.VentaDAO;
 
 import java.io.IOException;
@@ -34,6 +35,7 @@ String accion;
 Usuario usuarioSesion = null;
 CRUD clienteCRUD = null;
 Cliente cli = null;
+UsuarioDAO usrDAO = null;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -94,9 +96,10 @@ Cliente cli = null;
             
             if (accion != null) 
             {
+                clienteCRUD = new ConsultaCliente();
                 if (accion.equals("agregarCliente")) 
                 {
-                    clienteCRUD = new ConsultaCliente();
+                    
                     cli = new Cliente();
 
                     cli.getPersonaCliente().getDireccionPersona().setPais_Direccion(request.getParameter("Pais"));
@@ -225,7 +228,15 @@ Cliente cli = null;
                 }
 
 
-                    
+                if (accion.equals("validarCorreoCliente")) {
+                    if (clienteCRUD.validarCorreo(request.getParameter("Correo"))) {
+                        response.setContentType("text/plain");
+                        response.getWriter().write("false");
+                    } else {
+                        response.setContentType("text/plain");
+                        response.getWriter().write("true");
+                    }
+                }    
                     
             }
 

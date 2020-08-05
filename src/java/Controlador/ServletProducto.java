@@ -133,7 +133,7 @@ public class ServletProducto extends HttpServlet {
                     if (productoCRUD.actualizar(p));
                     {
 
-                        request.getSession().setAttribute("Mensaje", "Se edito correctamente");
+                        request.getSession().setAttribute("Mensaje", "Se actualizo correctamente");
                     }
                 }
                     if (accion.equals("actualizarProducto")) {
@@ -145,7 +145,7 @@ public class ServletProducto extends HttpServlet {
                     if (productoDAO.actualizarProductoSolo(p));
                     {
                         
-                        request.getSession().setAttribute("Mensaje", "Se edito correctamente");
+                        request.getSession().setAttribute("Mensaje", "Se actualizo correctamente");
                     }
                 }
             }

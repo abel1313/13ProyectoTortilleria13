@@ -18,33 +18,34 @@ ArrayList<Cliente>clientes = session.getAttribute("cliente") !=null ?
 session.setAttribute("clienteListo", clientes);
 %>
 
-         <div class="row" id="">
-
-             <%
+<table class="table" style=" color: whitesmoke !important; ">
+    <thead>
+        <tr>
+            <th>Nombre cliente</th>
+            <th>Apellidos cliente</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+                     <%
                  for (int i = 0; i < clientes.size(); i++) {
                          Cliente c=(Cliente)clientes.get(i);
                      
              %>
-             <div class="col-3">
-                 <div class="card text-white bg-dark mb-3" style="display: inline-grid; width: 100%">
-                     <div class="card-header"><header>Cliente</header></div>
-                     <div class="card-body">
-
-                         <p class="card-text">Nombre Cliente <%=(c.getPersonaCliente().getNombre_Persona())%></p>
-                         <p class="card-text">Apellidos <br/><%=(c.getPersonaCliente().getPaterno_Persona() +" "+c.getPersonaCliente().getMaterno_Persona() )%></p>
- 
-                          
-                          <button type="button" class="btn btn-light agregarClienteEncontrado" value="<%=i%>">Agregar</button>
-                          
-                     </div>                                         
-
-                 </div>
-             </div>
-             <%
+        <tr>
+            <td><%=(c.getPersonaCliente().getNombre_Persona())%></td>
+            <td><%=(c.getPersonaCliente().getPaterno_Persona() +" "+c.getPersonaCliente().getMaterno_Persona() )%></td>
+            <td>
+                <button type="button" class="btn btn-light agregarClienteEncontrado" value="<%=i%>">Agregar</button>
+            </td>
+        </tr>
+                <%
                  }
              %>
+    </tbody>
+</table>
 
-         </div>
+
 
 <script src="./Javascript/Cliente/TodosClientes.js" type="text/javascript"></script>
 

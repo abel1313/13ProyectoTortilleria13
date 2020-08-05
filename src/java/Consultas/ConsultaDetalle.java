@@ -119,6 +119,11 @@ throw new UnsupportedOperationException("Not supported yet."); //To change body 
     public boolean actualizar(DetalleVenta actualizar) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public boolean validarCorreo(String correo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
 }

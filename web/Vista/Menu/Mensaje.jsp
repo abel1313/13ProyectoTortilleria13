@@ -12,7 +12,7 @@
 <div class="alert alert-info" role="alert">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
 
-    <h3><%= session.getAttribute("Mensaje").toString()%> </h3>
+    <h3 style="font-size: 0.7em;"><%= session.getAttribute("Mensaje").toString()%> </h3>
     <%
 
             session.removeAttribute("Mensaje");

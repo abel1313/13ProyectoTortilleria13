@@ -6,6 +6,7 @@ $(()=>{
     $(".clienteCompra").hide();
     $('.realizarCOmpraDomicilio').click(()=>{
         
+        $(".divTablaDetalle").hide();
        $(".clienteCompra").show();
         
         
@@ -35,9 +36,21 @@ $(()=>{
         
     });
     
-    $(".agregarCantidad").click(function(){
-        enviarVenta($("#cantidadTortillas").val(),false);
+    $("#cantidadTortillas").mouseenter(()=>{
+        $("#cantTor").text("cantidad");
+        $("#cantidadTortillas").val("");
+        $("#cantidadTortillas").focus();
     });
+    $(".agregarCantidad").click(function(){
+        if($("#cantidadTortillas").val() === 0 || $("#cantidadTortillas").val() === "")
+        {
+           
+            $("#cantTor").text("Número no valido");
+            
+        }else{
+        enviarVenta($("#cantidadTortillas").val(),false);
+    }
+        });
    $('#nuevaVenta').click(()=>{
        
                        $.ajax({
@@ -93,7 +106,11 @@ $(()=>{
          var verificarPrecio =false;
       
         var code = (e.keyCode ? e.keyCode : e.which);
-        
+         if($("#cantidadTortillas").val() === 0 || $("#cantidadTortillas").val() === "")
+        {
+            $("#cantTor").text("Número no valido");
+            return false;
+        }
         
         if(code===107){
             // signo mas
@@ -126,19 +143,25 @@ $.validator.addMethod("valueNotEquals", function(value, element, arg){
         rules: {
             Pais: {valueNotEquals: "default"},
             Estado: {selectEstado: "estado"},
-            Municipio:{required: true, maxlength: 20, minlength: 5}, 
-           Calle:{required: true, maxlength: 20, minlength: 5}, 
-           Colonia:{required: true, maxlength: 20, minlength: 5}, 
-           CodigoPostal:{required: true, maxlength: 20, minlength: 5}, 
-           
+            Municipio: {required: true, maxlength: 20, minlength: 5},
+            Calle: {required: true, maxlength: 20, minlength: 5},
+            Colonia: {required: true, maxlength: 20, minlength: 5},
+            CodigoPostal: {required: true, maxlength: 20, minlength: 5},
+            Correo: {maxlength: 25, minlength: 5,
+                remote: {url: "./DatosCliente", type: "POST", data: {accion: "validarCorreoCliente"}}},
             Sexo: {selectSexo: "sex"},
-           Nombre:{required: true, maxlength: 20, minlength: 3}, 
-           Paterno:{required: true, maxlength: 20, minlength: 5},
-            Materno:{required: true, maxlength: 20, minlength: 5},
+            Nombre: {required: true, maxlength: 20, minlength: 3},
+            Paterno: {required: true, maxlength: 20, minlength: 5},
+            Materno: {required: true, maxlength: 20, minlength: 5},
+
+            FechaNacimiento: {required: true}
             
-            FechaNacimiento: {required : true}
-            
-        },            
+        }, 
+                messages: {
+            Correo: {
+                remote: "El correo ya existe."
+            }
+        },
         submitHandler: function (form) {
             $('.loaders').css({'display': 'block'});
   
