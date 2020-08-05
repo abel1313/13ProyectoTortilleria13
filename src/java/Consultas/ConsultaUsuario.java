@@ -280,6 +280,7 @@ public class ConsultaUsuario implements UsuarioDAO {
 
     @Override
     public boolean validarCorreo(String correo) {
+        System.out.println("correo "+ correo);
         try {
             conDB = new ConexionDB();
             conexion = conDB.conexionDB();
@@ -291,8 +292,10 @@ public class ConsultaUsuario implements UsuarioDAO {
             ps.setString(1, correo);
             rs = ps.executeQuery();
             if (rs != null && rs.next()) {
+                
                 return true;
             } else {
+                
                 return false;
             }
 

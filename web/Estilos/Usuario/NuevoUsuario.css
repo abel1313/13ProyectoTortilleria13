@@ -1,0 +1,9 @@
+.contenedorUsuario{
+    width: 50%;
+    border:1px solid red;
+    margin: auto;
+}
+.btnRegistrar div div > button{
+    margin-left: 17%;
+    color: red !important;
+}

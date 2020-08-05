@@ -207,8 +207,9 @@ public class ServletUsuario extends HttpServlet {
                     response.getWriter().write("false");
 
                 } else {
-                    System.out.println("no entro ");
+                    
                     response.setContentType("text/plain");
+                    response.getWriter().write("true");
 
                 }
             }

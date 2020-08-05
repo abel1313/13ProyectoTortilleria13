@@ -8,9 +8,9 @@ $(()=>{
 $('.agregarVenta').click(function(){
     agregar('./Vista/Venta/Venta.jsp');
 });
-$('.actualizarUsuario').click(()=>{
+$('.agregarUsuario').click(()=>{
     
-    agregar('./Vista/Usuario/ActualizarUsuario.jsp');
+    agregar('./Vista/Usuario/NuevoUsuario.jsp');
 });
 $('.mostrarUsuario').click(()=>{
     
