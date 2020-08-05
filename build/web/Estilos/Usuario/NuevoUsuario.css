@@ -1,9 +1,22 @@
-.contenedorUsuario{
-    width: 50%;
-    border:1px solid red;
-    margin: auto;
-}
+
+
 .btnRegistrar div div > button{
     margin-left: 17%;
-    color: red !important;
+    
 }
+/*.buttonload {
+  background-color: #4CAF50;  Green background 
+  border: none;  Remove borders 
+  color: white;  White text 
+  padding: 12px 24px;  Some padding 
+  font-size: 16px;  Set a font-size 
+}
+.fa {
+  margin-left: -12px;
+  margin-right: 8px;
+}*/
+
+.tenerOver legend,.registrarDireccion header h2{
+    text-align: center;
+}
+
