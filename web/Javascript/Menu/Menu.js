@@ -1,5 +1,5 @@
 $(()=>{
-    
+//Comentario
 //$('.agregarUsuario').click(function(){
 //    agregar('./Vista/Venta/Venta.jsp');
 //    
