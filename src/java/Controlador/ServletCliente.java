@@ -245,7 +245,7 @@ public class ServletCliente extends HttpServlet {
 
                     
                     if (clienteCRUD.agregarDatos(cli)) {
-                        System.out.println("Llego ");
+                        
                         request.getSession().setAttribute("Mensaje", "Se creado correctamente");
                     }
 
