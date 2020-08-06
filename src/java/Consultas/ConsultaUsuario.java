@@ -545,4 +545,42 @@ public class ConsultaUsuario implements UsuarioDAO {
         }
     }
 
+    @Override
+    public boolean validarUsuario(String usr) {
+      
+                try {
+            conDB = new ConexionDB();
+            conexion = conDB.conexionDB();
+            String sqlCorreoUsuario = "SELECT u.id_Usuario \n" +
+"  FROM  Usuario u \n" +
+"  WHERE u.userName_User = ?";
+
+            ps = conexion.prepareStatement(sqlCorreoUsuario);
+            ps.setString(1, usr);
+            rs = ps.executeQuery();
+            if (rs != null && rs.next()) {
+                
+                return true;
+            } else {
+                
+                return false;
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Error Agregar Usuario Consulta Usuario " + ex.getMessage());
+            Logger.getLogger(ConsultaUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            try {
+                ps.close();
+                rs.close();
+                conexion.close();
+            } catch (SQLException ex) {
+                System.out.println("error cerrar conexiones ConsultaCliente " + ex.getMessage());
+                Logger.getLogger(ConsultaCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+    }
+
 }

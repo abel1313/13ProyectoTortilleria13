@@ -223,6 +223,21 @@ public class ServletUsuario extends HttpServlet {
                     response.getWriter().write("true");
                 }
             }
+            if (accion.equals("validarUsuario")) {
+                
+                if (usrDAO.validarUsuario(request.getParameter("userName"))) {
+                    response.setContentType("text/plain");
+                    response.getWriter().write("false");
+                    
+
+                } else {
+                    
+                    response.setContentType("text/plain");
+                    response.getWriter().write("true");
+                    
+
+                }
+            }
             if (accion.equals("buscarUsuario")) {
                 usrDAO = new ConsultaUsuario();
 

@@ -20,7 +20,7 @@ public interface UsuarioDAO extends CRUD <Usuario>{
     
     public Usuario accederUsuario(String user, String contra,String correo);
     public boolean agregarUsuario(Usuario usr);
-    
+    public boolean validarUsuario(String usr);
     public boolean validarCorreoActualizar(String correo,int idUsu);
     
 }

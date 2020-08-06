@@ -29,7 +29,7 @@ var nuevoUsuario = ()=>{
             
             
             userName:{required: true, maxlength: 20, minlength: 3,
-            remote: {url: "./DatosUsuario", type: "POST", data: {accion: "validarCorreo"}}},
+            remote: {url: "./DatosUsuario", type: "POST", data: {accion: "validarUsuario"}}},
             pass:{required: true, maxlength: 20, minlength: 3},
             ConfPass:{required: true, maxlength: 20, minlength: 3,equalTo:"#pass"},
             Nombre: {required: true, maxlength: 20, minlength: 3},
@@ -39,7 +39,7 @@ var nuevoUsuario = ()=>{
             Nacimiento: {required: true},
             Sexo: {selectSexo: "sex"},
             Correo: {maxlength: 25, minlength: 5,
-                remote: {url: "./DatosUsuario", type: "POST", data: {accion: "validarUsuario"}}},
+                remote: {url: "./DatosUsuario", type: "POST", data: {accion: "validarCorreo"}}},
 
             Pais: {seleccionePais:"pais",required: true},
             Estado: {seleccioneEstado:"estado",required: true},
