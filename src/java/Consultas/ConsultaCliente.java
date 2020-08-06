@@ -244,7 +244,77 @@ public class ConsultaCliente implements ClienteDAO {
 
     @Override
     public boolean agregarDatos(Cliente t) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         try {
+            conDB = new ConexionDB();
+
+            conexion = conDB.conexionDB();
+
+            String sqlDireccion = "INSERT INTO Direccion"
+                    + "(pais_Direccion,estado_Direccion,municipio_Direccion,calle_Direccion,colonia_Direccion,"
+                    + "codigoPostal_Direccion,numeroExterior_Direccion,numeroInterior_Direccion)VALUES(?,?,?,?,?,?,?,?)";
+
+            String sqlPersona = "INSERT INTO Persona"
+                    + "(nombre_Persona,apellidoPaterno_Persona,apellidoMaterno_Persona,fechaNacimiento_Persona,sexo_Persona,"
+                    + "telefono_Persona,correo_Persona,id_DireccionFK)VALUES(?,?,?,?,?,?,?,?)";
+
+            String sqlCliente = "INSERT INTO Cliente(id_PersonaFK)VALUES(?)";
+
+            ps = conexion.prepareStatement(sqlDireccion);
+            ps.setString(1, t.getPersonaCliente().getDireccionPersona().getPais_Direccion());
+            ps.setString(2, t.getPersonaCliente().getDireccionPersona().getEstado_Direccion());
+            ps.setString(3, t.getPersonaCliente().getDireccionPersona().getMunicipio_Direccion());
+            ps.setString(4, t.getPersonaCliente().getDireccionPersona().getCalle_Direccion());
+            ps.setString(5, t.getPersonaCliente().getDireccionPersona().getColonia_Direccion());
+            ps.setString(6, t.getPersonaCliente().getDireccionPersona().getCodigoPostal_Direccion());
+            ps.setString(7, t.getPersonaCliente().getDireccionPersona().getNumeroExterior_Direccion());
+            ps.setString(8, t.getPersonaCliente().getDireccionPersona().getNumeroInterior_Direccion());
+            ps.executeUpdate();
+
+            ps = conexion.prepareStatement("select last_insert_id() as ultimoDireccion");
+            rs = ps.executeQuery();
+            if (rs != null && rs.next()) {
+                t.getPersonaCliente().getDireccionPersona().setId_Direccion(Integer.parseInt(rs.getString("ultimoDireccion")));
+            }
+
+            ps = conexion.prepareStatement(sqlPersona);
+            ps.setString(1, t.getPersonaCliente().getNombre_Persona());
+            ps.setString(2, t.getPersonaCliente().getPaterno_Persona());
+            ps.setString(3, t.getPersonaCliente().getMaterno_Persona());
+            ps.setString(4, t.getPersonaCliente().getFechaNacimiento_Persona());
+            ps.setString(5, t.getPersonaCliente().getSexo_Persona());
+            ps.setString(6, t.getPersonaCliente().getTelefono_Persona());
+            ps.setString(7, t.getPersonaCliente().getCorreo_Persona());
+            ps.setInt(8, t.getPersonaCliente().getDireccionPersona().getId_Direccion());
+            ps.executeUpdate();
+
+            ps = conexion.prepareStatement("select last_insert_id() as ultimaPerson");
+            rs = ps.executeQuery();
+            if (rs != null && rs.next()) {
+                t.getPersonaCliente().setId_Persona(Integer.parseInt(rs.getString("ultimaPerson")));
+            }
+            ps = conexion.prepareStatement(sqlCliente);
+            ps.setInt(1, t.getPersonaCliente().getId_Persona());
+            ps.executeUpdate();
+
+            
+            return true;
+            
+
+        } catch (SQLException ex) {
+            System.out.println("error ConsultaCliente " + ex.getMessage());
+            Logger.getLogger(ConsultaCliente.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            try {
+                ps.close();
+                rs.close();
+                conexion.close();
+            } catch (SQLException ex) {
+                System.out.println("error cerrar conexiones ConsultaCliente " + ex.getMessage());
+                Logger.getLogger(ConsultaCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
 
     @Override

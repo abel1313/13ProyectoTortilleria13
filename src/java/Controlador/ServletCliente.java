@@ -31,11 +31,13 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ServletCliente", urlPatterns = {"/DatosCliente"})
 public class ServletCliente extends HttpServlet {
-String accion;
-Usuario usuarioSesion = null;
-CRUD clienteCRUD = null;
-Cliente cli = null;
-UsuarioDAO usrDAO = null;
+
+    String accion;
+    Usuario usuarioSesion = null;
+    CRUD clienteCRUD = null;
+    Cliente cli = null;
+    UsuarioDAO usrDAO = null;
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -53,7 +55,7 @@ UsuarioDAO usrDAO = null;
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ServletCliente</title>");            
+            out.println("<title>Servlet ServletCliente</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet ServletCliente at " + request.getContextPath() + "</h1>");
@@ -74,7 +76,7 @@ UsuarioDAO usrDAO = null;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**
@@ -90,16 +92,13 @@ UsuarioDAO usrDAO = null;
             throws ServletException, IOException {
         accion = request.getParameter("accion");
         usuarioSesion = (Usuario) request.getSession().getAttribute("us");
-        
-        if (usuarioSesion != null && usuarioSesion.getRolUsuario().getPermisos().contains(1)) 
-        {
-            
-            if (accion != null) 
-            {
+
+        if (usuarioSesion != null && usuarioSesion.getRolUsuario().getPermisos().contains(1)) {
+
+            if (accion != null) {
                 clienteCRUD = new ConsultaCliente();
-                if (accion.equals("agregarCliente")) 
-                {
-                    
+                if (accion.equals("agregarCliente")) {
+
                     cli = new Cliente();
 
                     cli.getPersonaCliente().getDireccionPersona().setPais_Direccion(request.getParameter("Pais"));
@@ -127,8 +126,7 @@ UsuarioDAO usrDAO = null;
                     }
 
                 }
-                if (accion.equals("nuevaDireccionDetalle")) 
-                {
+                if (accion.equals("nuevaDireccionDetalle")) {
                     ClienteDAO dirNueva = new ConsultaCliente();
                     Direccion dir = new Direccion();
 
@@ -144,89 +142,76 @@ UsuarioDAO usrDAO = null;
                     Direccion dirReg = (Direccion) dirNueva.agregarDireccion(dir);
 
                     Venta ves = (Venta) request.getSession().getAttribute("venta");
-                    
-                    if (dirReg.getId_Direccion()!= 0) {
-                        
+
+                    if (dirReg.getId_Direccion() != 0) {
+
                         ves.getTipoPedidoVenta().setId_TipoPedido(2);
                         ves.getUsuarioVenta().setId_Usuario(usuarioSesion.getId_Usuario());
                         VentaDAO ventaDatos = new ConsultaVenta();
-                        if(ventaDatos.agregarDatos(ves, dirReg.getId_Direccion()))
-                        {
+                        if (ventaDatos.agregarDatos(ves, dirReg.getId_Direccion())) {
                             request.getSession().setAttribute("venta", new Venta());
                             request.getSession().setAttribute("Mensaje", "Envio a domicilio correctamente");
                         }
                     }
 
                 }
-                if (accion.equals("direccionCliente"))
-                {      
+                if (accion.equals("direccionCliente")) {
                     VentaDAO ventaDireccionActual = new ConsultaVenta();
-                    Venta venta = (Venta)request.getSession().getAttribute("venta");
+                    Venta venta = (Venta) request.getSession().getAttribute("venta");
                     venta.getTipoPedidoVenta().setId_TipoPedido(Integer.parseInt(request.getParameter("tipoPedido")));
                     venta.getUsuarioVenta().setId_Usuario(usuarioSesion.getId_Usuario());
-                    
-                    
-                    if(ventaDireccionActual.agregarDatos(venta, 0)){
-                             request.getSession().setAttribute("venta", new Venta());
-                            request.getSession().setAttribute("Mensaje", "Envio a domicilio correctamente");
-                            
-                    
+
+                    if (ventaDireccionActual.agregarDatos(venta, 0)) {
+                        request.getSession().setAttribute("venta", new Venta());
+                        request.getSession().setAttribute("Mensaje", "Envio a domicilio correctamente");
+
                     }
 
                 }
-                if (accion.equals("tortillriaPedido"))
-                {      
+                if (accion.equals("tortillriaPedido")) {
                     VentaDAO ventaDireccionActual = new ConsultaVenta();
-                    Venta venta = (Venta)request.getSession().getAttribute("venta");
+                    Venta venta = (Venta) request.getSession().getAttribute("venta");
                     venta.getTipoPedidoVenta().setId_TipoPedido(Integer.parseInt(request.getParameter("tipoPedido")));
                     venta.getUsuarioVenta().setId_Usuario(usuarioSesion.getId_Usuario());
-                    
-                    
-                    if(ventaDireccionActual.agregarPedidoTortilleria(venta)){
-                             request.getSession().setAttribute("venta", new Venta());
-                            request.getSession().setAttribute("Mensaje", "Pedido creado correctamente");
-                            
+
+                    if (ventaDireccionActual.agregarPedidoTortilleria(venta)) {
+                        request.getSession().setAttribute("venta", new Venta());
+                        request.getSession().setAttribute("Mensaje", "Pedido creado correctamente");
+
                     }
 
                 }
-                
-                if(accion.equals("buscarCliente"))
-                {
-                    
-                  clienteCRUD = new ConsultaCliente();
-                   ArrayList buscarCliente = clienteCRUD.buscarTodos(request.getParameter("buscarCliente"));
-                   request.getSession().setAttribute("cliente",buscarCliente);
+
+                if (accion.equals("buscarCliente")) {
+
+                    clienteCRUD = new ConsultaCliente();
+                    ArrayList buscarCliente = clienteCRUD.buscarTodos(request.getParameter("buscarCliente"));
+                    request.getSession().setAttribute("cliente", buscarCliente);
                 }
-                if(accion.equals("selecccionarClienteVenta"))
-                {
+                if (accion.equals("selecccionarClienteVenta")) {
                     int valor = Integer.parseInt(request.getParameter("idCliente"));
-                    Cliente cl=((ArrayList<Cliente>)request.getSession().getAttribute("clienteListo")).get(valor);
-                    
-                    Venta v= (Venta)request.getSession().getAttribute("venta");
+                    Cliente cl = ((ArrayList<Cliente>) request.getSession().getAttribute("clienteListo")).get(valor);
+
+                    Venta v = (Venta) request.getSession().getAttribute("venta");
                     if (usuarioSesion.getRolUsuario().getId_RolUduario() == 1) {
-                        
-                        
+
                         if (cl.getId_Cliente() != 0) {
-                            
+
                             v.setClienteVenta(cl);
-                            
-                            
 
                         }
-                    }else{
-                        
-                         v.setClienteVenta(cl);
+                    } else {
+
+                        v.setClienteVenta(cl);
                     }
 
+                }
+                if (usuarioSesion.getRolUsuario().getId_RolUduario() != 1) {
+
+                    Venta ves = (Venta) request.getSession().getAttribute("venta");
+                    ves.setClienteVenta(usuarioSesion.getClienteUsuario());
 
                 }
-               if (usuarioSesion.getRolUsuario().getId_RolUduario() !=1 ) {
-
-                Venta ves = (Venta) request.getSession().getAttribute("venta");
-                ves.setClienteVenta(usuarioSesion.getClienteUsuario());
-
-                }
-
 
                 if (accion.equals("validarCorreoCliente")) {
                     if (clienteCRUD.validarCorreo(request.getParameter("Correo"))) {
@@ -236,8 +221,37 @@ UsuarioDAO usrDAO = null;
                         response.setContentType("text/plain");
                         response.getWriter().write("true");
                     }
-                }    
+                }
+                if (accion.equals("AgregarClienteDts")) {
+
+                    cli = new Cliente();
+
+                    cli.getPersonaCliente().getDireccionPersona().setPais_Direccion(request.getParameter("Pais"));
+                    cli.getPersonaCliente().getDireccionPersona().setEstado_Direccion(request.getParameter("Estado"));
+                    cli.getPersonaCliente().getDireccionPersona().setMunicipio_Direccion(request.getParameter("Municipio"));
+                    cli.getPersonaCliente().getDireccionPersona().setCalle_Direccion(request.getParameter("Calle"));
+                    cli.getPersonaCliente().getDireccionPersona().setColonia_Direccion(request.getParameter("Colonia"));
+                    cli.getPersonaCliente().getDireccionPersona().setCodigoPostal_Direccion(request.getParameter("Postal"));
+                    cli.getPersonaCliente().getDireccionPersona().setNumeroExterior_Direccion(request.getParameter("Exterior"));
+                    cli.getPersonaCliente().getDireccionPersona().setNumeroInterior_Direccion(request.getParameter("Interior"));
+
+                    cli.getPersonaCliente().setNombre_Persona(request.getParameter("Nombre"));
+                    cli.getPersonaCliente().setPaterno_Persona(request.getParameter("Paterno"));
+                    cli.getPersonaCliente().setMaterno_Persona(request.getParameter("Materno"));
+                    cli.getPersonaCliente().setFechaNacimiento_Persona(request.getParameter("Nacimiento"));
+                    cli.getPersonaCliente().setSexo_Persona(request.getParameter("Sexo"));
+                    cli.getPersonaCliente().setTelefono_Persona(request.getParameter("Telefono"));
+                    cli.getPersonaCliente().setCorreo_Persona(request.getParameter("Correo"));
+
                     
+                    if (clienteCRUD.agregarDatos(cli)) {
+                        System.out.println("Llego ");
+                        request.getSession().setAttribute("Mensaje", "Se creado correctamente");
+                    }
+
+                }
+                
+
             }
 
         }

@@ -37,6 +37,7 @@
                     <a class="dropdown-item agregarUsuario" href="#">Agregar</a>
                     <a class="dropdown-item mostrarUsuario" href="#">Consultar</a>
 
+                   
 
                 </div>
             </li>
@@ -53,6 +54,14 @@
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item agregarCliente" href="#">Agregar</a>
                     <a class="dropdown-item mostrarCliente" href="#">Consultar</a>
+                    <%
+                       if(usuarioSession.getRolUsuario().getId_RolUduario() == 2)
+                       {
+                    %>
+                    <a class="dropdown-item ActualizarCliente" href="#">Actualizar</a>
+                    <%
+                        }
+                    %>
                 </div>
             </li>
             
@@ -81,7 +90,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item agregarVenta" href="#">Agregar</a>
-                    <a class="dropdown-item mostrarVenta" href="#">Consultar</a>
+                    
 
                 </div>
             </li>
