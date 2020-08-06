@@ -184,22 +184,27 @@ public class ConsultaCliente implements ClienteDAO {
         try {
             conDB = new ConexionDB();
             conexion = conDB.conexionDB();
-            String sqlClientes = "SELECT p.nombre_Persona,p.apellidoPaterno_Persona,p.apellidoMaterno_Persona,p.telefono_Persona ,\n"
-                    + "d.pais_Direccion,cl.id_Cliente \n"
-                    + "FROM Cliente cl\n"
-                    + "INNER JOIN Persona p \n"
-                    + "ON p.id_Persona = cl.id_PersonaFK \n"
-                    + "INNER JOIN Direccion d \n"
-                    + "ON d.id_Direccion = p.id_DireccionFK ORDER BY p.apellidoPaterno_Persona";
+            String sqlClientes = "SELECT p.nombre_Persona,p.apellidoPaterno_Persona,p.apellidoMaterno_Persona,p.telefono_Persona ,\n" +
+"                    d.pais_Direccion,cl.id_Cliente,p.fechaNacimiento_Persona ,p.sexo_Persona ,\n" +
+"                    p.correo_Persona,p.id_Persona,d.estado_Direccion,d.municipio_Direccion,d.calle_Direccion,\n" +
+"                    d.colonia_Direccion,d.codigoPostal_Direccion,d.numeroExterior_Direccion,d.numeroInterior_Direccion \n" +
+"                    FROM Cliente cl\n" +
+"                    INNER JOIN Persona p \n" +
+"                    ON p.id_Persona = cl.id_PersonaFK \n" +
+"                    INNER JOIN Direccion d \n" +
+"                    ON d.id_Direccion = p.id_DireccionFK";
 
-            String sqlCliente = "SELECT p.nombre_Persona,p.apellidoPaterno_Persona,p.apellidoMaterno_Persona,p.telefono_Persona ,\n"
-                    + "d.pais_Direccion,cl.id_Cliente \n"
-                    + "FROM Cliente cl\n"
-                    + "INNER JOIN Persona p \n"
-                    + "ON p.id_Persona = cl.id_PersonaFK \n"
-                    + "INNER JOIN Direccion d \n"
-                    + "ON d.id_Direccion = p.id_DireccionFK WHERE p.apellidoPaterno_Persona LIKE ? \n"
-                    + "ORDER BY p.apellidoPaterno_Persona";
+            String sqlCliente = "SELECT p.nombre_Persona,p.apellidoPaterno_Persona,p.apellidoMaterno_Persona,p.telefono_Persona ,\n" +
+"                    d.pais_Direccion,cl.id_Cliente,p.fechaNacimiento_Persona ,p.sexo_Persona ,\n" +
+"                    p.correo_Persona,p.id_Persona,d.estado_Direccion,d.municipio_Direccion,d.calle_Direccion,\n" +
+"                    d.colonia_Direccion,d.codigoPostal_Direccion,d.numeroExterior_Direccion,d.numeroInterior_Direccion \n" +
+"                    FROM Cliente cl\n" +
+"                    INNER JOIN Persona p \n" +
+"                    ON p.id_Persona = cl.id_PersonaFK \n" +
+"                    INNER JOIN Direccion d \n" +
+"                    ON d.id_Direccion = p.id_DireccionFK \n" +
+"                    WHERE p.apellidoPaterno_Persona LIKE ?\n" +
+"                    ORDER BY p.apellidoPaterno_Persona";
 
             if (buscar.equals("")) {
 
@@ -220,8 +225,19 @@ public class ConsultaCliente implements ClienteDAO {
                 cli.getPersonaCliente().setMaterno_Persona(rs.getString(3));
                 cli.getPersonaCliente().setTelefono_Persona(rs.getString(4));
                 cli.getPersonaCliente().getDireccionPersona().setPais_Direccion(rs.getString(5));
-
                 cli.setId_Cliente(rs.getInt(6));
+                cli.getPersonaCliente().setFechaNacimiento_Persona(rs.getString(7));
+                cli.getPersonaCliente().setSexo_Persona(rs.getString(8));
+                cli.getPersonaCliente().setCorreo_Persona(rs.getString(9));
+                cli.getPersonaCliente().setId_Persona(rs.getInt(10));
+                cli.getPersonaCliente().getDireccionPersona().setEstado_Direccion(rs.getString(11));
+                cli.getPersonaCliente().getDireccionPersona().setMunicipio_Direccion(rs.getString(12));
+                cli.getPersonaCliente().getDireccionPersona().setCalle_Direccion(rs.getString(13));
+                cli.getPersonaCliente().getDireccionPersona().setColonia_Direccion(rs.getString(14));
+                cli.getPersonaCliente().getDireccionPersona().setCodigoPostal_Direccion(rs.getString(15));
+                cli.getPersonaCliente().getDireccionPersona().setNumeroExterior_Direccion(rs.getString(16));
+                cli.getPersonaCliente().getDireccionPersona().setNumeroInterior_Direccion(rs.getString(17));
+                
                 guardarCliente.add(cli);
             }
 
@@ -379,6 +395,41 @@ public class ConsultaCliente implements ClienteDAO {
 
             ps = conexion.prepareStatement(sqlCorreoUsuario);
             ps.setString(1, correo);
+            rs = ps.executeQuery();
+            if (rs != null && rs.next()) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Error Agregar Usuario Consulta Usuario " + ex.getMessage());
+            Logger.getLogger(ConsultaUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            try {
+                ps.close();
+                rs.close();
+                conexion.close();
+            } catch (SQLException ex) {
+                System.out.println("error cerrar conexiones ConsultaCliente " + ex.getMessage());
+                Logger.getLogger(ConsultaCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    @Override
+    public boolean validarCorreoActualizar(String correo, int id) {
+               try {
+            conDB = new ConexionDB();
+            conexion = conDB.conexionDB();
+            String sqlCorreoUsuario = "SELECT p.id_Persona \n"
+                    + "                   FROM Persona p \n"
+                    + "                   WHERE p.correo_Persona = ? AND p.id_Persona <> ?";
+
+            ps = conexion.prepareStatement(sqlCorreoUsuario);
+            ps.setString(1, correo);
+            ps.setInt(2, id);
             rs = ps.executeQuery();
             if (rs != null && rs.next()) {
                 return true;

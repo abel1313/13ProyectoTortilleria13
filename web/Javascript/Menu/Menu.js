@@ -11,6 +11,9 @@ $('.agregarVenta').click(function(){
 $('.agregarCliente').click(function(){
     agregar('./Vista/Cliente/NuevoCliente.jsp');
 });
+$('.mostrarCliente').click(function(){
+    agregar('./Vista/Cliente/Cliente.jsp');
+});
 $('.agregarUsuario').click(()=>{
     
     agregar('./Vista/Usuario/NuevoUsuario.jsp');

@@ -36,6 +36,7 @@ public class ServletCliente extends HttpServlet {
     Usuario usuarioSesion = null;
     CRUD clienteCRUD = null;
     Cliente cli = null;
+    ClienteDAO cliDAO = null;
     UsuarioDAO usrDAO = null;
 
     /**
@@ -183,7 +184,7 @@ public class ServletCliente extends HttpServlet {
                 }
 
                 if (accion.equals("buscarCliente")) {
-
+                    
                     clienteCRUD = new ConsultaCliente();
                     ArrayList buscarCliente = clienteCRUD.buscarTodos(request.getParameter("buscarCliente"));
                     request.getSession().setAttribute("cliente", buscarCliente);
@@ -249,6 +250,21 @@ public class ServletCliente extends HttpServlet {
                         request.getSession().setAttribute("Mensaje", "Se creado correctamente");
                     }
 
+                }
+                if (accion.equals("EditarClienteDts")) {
+                    
+                    
+                }
+                if (accion.equals("validarCorreoClienteEditar")) {
+                    Cliente c = (Cliente) request.getSession().getAttribute("EditarClienteZ");
+                    cliDAO = new ConsultaCliente();
+                    if (cliDAO.validarCorreoActualizar(request.getParameter("Correo"),c.getPersonaCliente().getId_Persona())) {
+                        response.setContentType("text/plain");
+                        response.getWriter().write("false");
+                    } else {
+                        response.setContentType("text/plain");
+                        response.getWriter().write("true");
+                    }
                 }
                 
 

@@ -15,4 +15,5 @@ import Modelo.Direccion;
  */
 public interface ClienteDAO extends CRUD<Cliente>{
     public Direccion agregarDireccion (Direccion d);
+    public boolean validarCorreoActualizar(String correo,int idUsu);
 }
