@@ -1,5 +1,5 @@
 
-$(() => {
+$(function(){
     
     $('.irSesion a').click(function(){
         $(location).attr('href','./Login.jsp');
@@ -53,7 +53,7 @@ $(() => {
     $(".iRegistrarse").addClass("fa-spin");
 
 //   alert($(form).serialize());
-           return false;
+           //return false;
 // 
 // 
     

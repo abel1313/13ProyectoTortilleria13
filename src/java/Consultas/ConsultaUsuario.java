@@ -208,6 +208,7 @@ public class ConsultaUsuario implements UsuarioDAO {
             String sqlCliente = "INSERT INTO Cliente(id_PersonaFK)VALUES(?)";
 
             ps = conexion.prepareStatement(sqlDireccion);
+            System.out.println("clase dir "+t.getPersonaUsuario().getDireccionPersona().getPais_Direccion());
             ps.setString(1, t.getPersonaUsuario().getDireccionPersona().getPais_Direccion());
             ps.setString(2, t.getPersonaUsuario().getDireccionPersona().getEstado_Direccion());
             ps.setString(3, t.getPersonaUsuario().getDireccionPersona().getMunicipio_Direccion());
@@ -322,9 +323,8 @@ public class ConsultaUsuario implements UsuarioDAO {
             conDB = new ConexionDB();
             conexion = conDB.conexionDB();
             String sqlCorreoUsuario = "SELECT p.id_Persona \n"
-                    + "                   FROM Usuario u2 \n"
-                    + "                   INNER JOIN Persona p \n"
-                    + "                   ON p.id_Persona = u2.id_PersonaFK WHERE p.correo_Persona = ? AND p.id_Persona <> ?";
+                    + "                   FROM Persona p \n"
+                    + "                   WHERE p.correo_Persona = ? AND p.id_Persona <> ?";
 
             ps = conexion.prepareStatement(sqlCorreoUsuario);
             ps.setString(1, correo);
@@ -369,30 +369,30 @@ public class ConsultaUsuario implements UsuarioDAO {
         try {
             conDB = new ConexionDB();
             conexion = conDB.conexionDB();
-            String sqlBuscarUsuarios = "SELECT u2.id_Usuario ,u2.userName_User,ru.id_TipoUser,ru.nombre_TipoUser,\n"
-                    + "p2.id_Persona,p2.nombre_Persona,p2.apellidoPaterno_Persona,p2.apellidoMaterno_Persona,\n"
-                    + "p2.fechaNacimiento_Persona,p2.sexo_Persona,p2.telefono_Persona,p2.correo_Persona,\n"
-                    + "d.id_Direccion,d.pais_Direccion,d.estado_Direccion,d.municipio_Direccion,d.calle_Direccion,\n"
-                    + "d.colonia_Direccion,d.codigoPostal_Direccion,d.numeroExterior_Direccion,d.numeroInterior_Direccion\n"
-                    + "FROM Usuario u2 \n"
-                    + "INNER JOIN Persona p2\n"
-                    + "ON p2.id_Persona = u2.id_Usuario\n"
-                    + "INNER JOIN Direccion d\n"
-                    + "ON d.id_Direccion = p2.id_Persona\n"
-                    + "INNER JOIN RolUsuario ru \n"
-                    + "ON ru.id_TipoUser = u2.id_TipoUserFK ORDER BY p2.apellidoPaterno_Persona";
-            String sqlBuscarUsuario = "SELECT u2.id_Usuario ,u2.userName_User,ru.id_TipoUser,ru.nombre_TipoUser,\n"
-                    + "p2.id_Persona,p2.nombre_Persona,p2.apellidoPaterno_Persona,p2.apellidoMaterno_Persona,\n"
-                    + "p2.fechaNacimiento_Persona,p2.sexo_Persona,p2.telefono_Persona,p2.correo_Persona,\n"
-                    + "d.id_Direccion,d.pais_Direccion,d.estado_Direccion,d.municipio_Direccion,d.calle_Direccion,\n"
-                    + "d.colonia_Direccion,d.codigoPostal_Direccion,d.numeroExterior_Direccion,d.numeroInterior_Direccion\n"
-                    + "FROM Usuario u2 \n"
-                    + "INNER JOIN Persona p2\n"
-                    + "ON p2.id_Persona = u2.id_Usuario\n"
-                    + "INNER JOIN Direccion d\n"
-                    + "ON d.id_Direccion = p2.id_Persona\n"
-                    + "INNER JOIN RolUsuario ru \n"
-                    + "ON ru.id_TipoUser = u2.id_TipoUserFK WHERE p2.apellidoPaterno_Persona LIKE ?\n"
+            String sqlBuscarUsuarios = "SELECT u2.id_Usuario ,u2.userName_User,ru.id_TipoUser,ru.nombre_TipoUser,\n" +
+"                    p2.id_Persona,p2.nombre_Persona,p2.apellidoPaterno_Persona,p2.apellidoMaterno_Persona,\n" +
+"                    p2.fechaNacimiento_Persona,p2.sexo_Persona,p2.telefono_Persona,p2.correo_Persona,\n" +
+"                    d.id_Direccion,d.pais_Direccion,d.estado_Direccion,d.municipio_Direccion,d.calle_Direccion,\n" +
+"                    d.colonia_Direccion,d.codigoPostal_Direccion,d.numeroExterior_Direccion,d.numeroInterior_Direccion\n" +
+"                    FROM Usuario u2 \n" +
+"                    INNER JOIN Persona p2\n" +
+"                    ON p2.id_Persona = u2.id_PersonaFK \n" +
+"                    INNER JOIN Direccion d\n" +
+"                    ON d.id_Direccion = p2.id_Persona\n" +
+"                    INNER JOIN RolUsuario ru\n" +
+"                    ON ru.id_TipoUser = u2.id_TipoUserFK ORDER BY p2.apellidoPaterno_Persona";
+            String sqlBuscarUsuario = "SELECT u2.id_Usuario ,u2.userName_User,ru.id_TipoUser,ru.nombre_TipoUser,\n" +
+"                    p2.id_Persona,p2.nombre_Persona,p2.apellidoPaterno_Persona,p2.apellidoMaterno_Persona,\n" +
+"                    p2.fechaNacimiento_Persona,p2.sexo_Persona,p2.telefono_Persona,p2.correo_Persona,\n" +
+"                    d.id_Direccion,d.pais_Direccion,d.estado_Direccion,d.municipio_Direccion,d.calle_Direccion,\n" +
+"                    d.colonia_Direccion,d.codigoPostal_Direccion,d.numeroExterior_Direccion,d.numeroInterior_Direccion\n" +
+"                    FROM Usuario u2 \n" +
+"                    INNER JOIN Persona p2\n" +
+"                    ON p2.id_Persona = u2.id_PersonaFK \n" +
+"                    INNER JOIN Direccion d\n" +
+"                    ON d.id_Direccion = p2.id_Persona\n" +
+"                    INNER JOIN RolUsuario ru\n" +
+"                    ON ru.id_TipoUser = u2.id_TipoUserFK WHERE p2.apellidoPaterno_Persona LIKE ?\n"
                     + "ORDER BY p2.apellidoPaterno_Persona";
 
             if (buscar.equals("")) {
@@ -485,6 +485,7 @@ public class ConsultaUsuario implements UsuarioDAO {
                     + "sexo_Persona = ?, telefono_Persona = ?, correo_Persona = ? WHERE id_Persona =?";
 
             if (actualizar.getId_Usuario() != 0 && actualizar.getContra().equals("")) {
+                
                 ps = conexion.prepareStatement(sqlActUsuario);
                 ps.setString(1, actualizar.getUserName());
                 ps.setInt(2, actualizar.getId_Usuario());
@@ -497,6 +498,7 @@ public class ConsultaUsuario implements UsuarioDAO {
                 ps.setString(1, actualizar.getUserName());
                 ps.setString(2, actualizar.getContra());
                 ps.setInt(3, actualizar.getId_Usuario());
+                
                 ps.executeUpdate();
 
             }
@@ -512,6 +514,7 @@ public class ConsultaUsuario implements UsuarioDAO {
                 ps.setString(7, actualizar.getPersonaUsuario().getCorreo_Persona());
                 ps.setInt(8, actualizar.getPersonaUsuario().getId_Persona());
                 ps.executeUpdate();
+                
             }
 
             if (actualizar.getPersonaUsuario().getDireccionPersona().getId_Direccion() != 0) {
@@ -527,6 +530,7 @@ public class ConsultaUsuario implements UsuarioDAO {
                 ps.setString(8, actualizar.getPersonaUsuario().getDireccionPersona().getNumeroInterior_Direccion());
                 ps.setInt(9, actualizar.getPersonaUsuario().getDireccionPersona().getId_Direccion());
                 ps.executeUpdate();
+                
             }
 
             return true;
@@ -581,6 +585,42 @@ public class ConsultaUsuario implements UsuarioDAO {
             }
         }
         
+    }
+
+    @Override
+    public boolean validarUserName(String usr, int id) {
+        try {
+            conDB = new ConexionDB();
+            conexion = conDB.conexionDB();
+            String sqlCorreoUsuario = "SELECT u2.id_Usuario\n" +
+                            "FROM Usuario u2 \n" +
+                            "WHERE u2.userName_User = ? && u2.id_Usuario <> ?";
+
+            ps = conexion.prepareStatement(sqlCorreoUsuario);
+            ps.setString(1, usr);
+            ps.setInt(2, id);
+            rs = ps.executeQuery();
+            if (rs != null && rs.next()) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (SQLException ex) {
+            System.err.println("Error Agregar Usuario Consulta Usuario " + ex.getMessage());
+            Logger.getLogger(ConsultaUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        } finally {
+            try {
+                ps.close();
+                rs.close();
+                conexion.close();
+            } catch (SQLException ex) {
+                System.out.println("error cerrar conexiones ConsultaCliente " + ex.getMessage());
+                Logger.getLogger(ConsultaCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
 
 }

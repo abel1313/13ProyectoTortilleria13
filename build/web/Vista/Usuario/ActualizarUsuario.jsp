@@ -251,6 +251,7 @@ session.setAttribute("usuarioListoActualizar", usrs);
                     <div class="col-6">
                         <div class="form-group">
                             <button type="submit" class="btn btn-info l">Terminar Registro</button>
+                            <div class="agregarSpiner"></div>
                         </div>
                     </div>
                     <div class="col-6">

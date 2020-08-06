@@ -17,6 +17,9 @@ ArrayList<Usuario>usuariosArray = session.getAttribute("usuariosEncontados") !=n
 (ArrayList<Usuario>)session.getAttribute("usuariosEncontados"):new ArrayList();
 session.setAttribute("UsuarioListo", usuariosArray);
 %>
+<div class="Mensaje">
+    
+</div>
 <div class="tablaUsuarios container-fluid">
     <table class="table table-info">
         <thead>
@@ -40,9 +43,21 @@ session.setAttribute("UsuarioListo", usuariosArray);
                 <td><%=(us.getPersonaUsuario().getNombre_Persona() + " " +us.getUserName())%></td>
                 <td><%=(us.getPersonaUsuario().getPaterno_Persona() +" " + us.getPersonaUsuario().getMaterno_Persona())%></td>
                 <td><%=(us.getPersonaUsuario().getDireccionPersona().getPais_Direccion() + " " + us.getPersonaUsuario().getDireccionPersona().getEstado_Direccion())%></td>
-                <td><%=(us.getPersonaUsuario().getCorreo_Persona())%></td>
+                <td>
+                    <%
+                        if(us.getPersonaUsuario().getCorreo_Persona().equals("")){
+                    %>   
+                    Sin correo
+                    <%
+                    }else{
+                    %>
+                    <%=(us.getPersonaUsuario().getCorreo_Persona())%>
+                    <%
+                        }
+                    %>
+                </td>
                 <td><%=(us.getRolUsuario().getNombre_RolUsuario())%></td>
-                <td><button class="btn btn-info enviarEditars" value="<%=i%>">Editar <%=i%></button></td>
+                <td><button class="btn btn-info enviarEditars" value="<%=i%>">Editar</button></td>
             </tr>
              <%
                  }

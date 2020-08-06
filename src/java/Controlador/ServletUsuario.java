@@ -6,7 +6,7 @@
 package Controlador;
 
 import Consultas.ConsultaUsuario;
-import Modelo.Cliente;
+
 import Modelo.Direccion;
 import Modelo.EncryptionPassword;
 import Modelo.Persona;
@@ -168,7 +168,9 @@ public class ServletUsuario extends HttpServlet {
                         Logger.getLogger(ServletUsuario.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
-
+                
+                System.out.println("Request servlet "+request.getParameter("Pais"));
+                
                 dir.setPais_Direccion(request.getParameter("Pais"));
                 dir.setEstado_Direccion(request.getParameter("Estado"));
                 dir.setMunicipio_Direccion(request.getParameter("Municipio"));
@@ -177,7 +179,7 @@ public class ServletUsuario extends HttpServlet {
                 dir.setCodigoPostal_Direccion(request.getParameter("Postal"));
                 dir.setNumeroExterior_Direccion(request.getParameter("Exterior"));
                 dir.setNumeroInterior_Direccion(request.getParameter("Interior"));
-
+                System.out.println("Objeto servlet "+dir.getPais_Direccion());
                 per.setNombre_Persona(request.getParameter("Nombre"));
                 per.setPaterno_Persona(request.getParameter("Paterno"));
                 per.setMaterno_Persona(request.getParameter("Materno"));
@@ -185,17 +187,18 @@ public class ServletUsuario extends HttpServlet {
                 per.setSexo_Persona(request.getParameter("Sexo"));
                 per.setTelefono_Persona(request.getParameter("Telefono"));
                 per.setCorreo_Persona(request.getParameter("Correo"));
-
+                per.setDireccionPersona(dir);
+                
                 ro.setId_RolUduario(2);
                 if (request.getParameter("userName").equals("")
                         && request.getParameter("pass").equals("")) {
                     usuarioDatos.setUserName(per.getNombre_Persona());
                 }
 
-                usuarioDatos.getPersonaUsuario().setDireccionPersona(dir);
+                
                 usuarioDatos.setPersonaUsuario(per);
                 usuarioDatos.setRolUsuario(ro);
-
+                System.out.println("objeto Usuario servlet "+ usuarioDatos.getPersonaUsuario().getDireccionPersona().getPais_Direccion());
                 usuarioDatos.getEstatusUsuario().setId_Estatus(1);
                 if (usrDAO.agregarUsuario(usuarioDatos)) {
                 }
@@ -223,6 +226,19 @@ public class ServletUsuario extends HttpServlet {
                     response.getWriter().write("true");
                 }
             }
+            if (accion.equals("validarUserName")) {
+                Usuario dtsUsuario = (Usuario) request.getSession().getAttribute("usuarioListoActualizar");
+                if (usrDAO.validarUserName(request.getParameter("UsrName"), dtsUsuario.getPersonaUsuario().getId_Persona())) {
+                    response.setContentType("text/plain");
+                    response.getWriter().write("false");
+                    
+                } else {
+                    response.setContentType("text/plain");
+                    response.getWriter().write("true");
+                    
+                }
+            }
+            
             if (accion.equals("validarUsuario")) {
                 
                 if (usrDAO.validarUsuario(request.getParameter("userName"))) {
@@ -339,6 +355,7 @@ public class ServletUsuario extends HttpServlet {
 //                   u.getPersonaUsuario().setDireccionPersona(di);
 //               }
                 if (usrDAO.actualizar(u)) {
+                    request.getSession().setAttribute("Mensaje", "Se actualizo correctamente");
                 }
 
             }
