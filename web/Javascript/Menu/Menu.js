@@ -32,6 +32,13 @@ $('.mostrarProducto').click(function(){
     agregar('./Vista/Producto/Producto.jsp');
 });
 
+$('.agregarEmpleado').click(function(){
+    agregar('./Vista/Empleado/AgregarEmpleado.jsp');
+});
+
+$('.mostrarEmpleado').click(function(){
+    agregar('./Vista/Empleado/Empleado.jsp');
+});
     
 });
 
