@@ -42,7 +42,7 @@
         <div class="contenedorPrincipal">
 
             <div class="contenedorHeader">
-                <header><h1>"Tortillería La Salida13"</h1></header>
+                <header><h1>"Tortillería La Salida"</h1></header>
             </div>
             <div class="contenedorBody">
 

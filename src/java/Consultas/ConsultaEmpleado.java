@@ -45,20 +45,20 @@ public class ConsultaEmpleado implements EmpleadoDAO {
 //                                "FROM empleado\n" +
 //                                "INNER JOIN persona ON empleado.id_PersonaFK=persona.id_Persona \n"+
 //                                  "WHERE persona.nombre_Persona LIKE ?";
-        String sqlBuscarEmpleados="SELECT direccion.id_Direccion,direccion.pais_Direccion,direccion.estado_Direccion,direccion.municipio_Direccion,direccion.calle_Direccion,direccion.colonia_Direccion,direccion.codigoPostal_Direccion,direccion.numeroExterior_Direccion,direccion.numeroInterior_Direccion,\n" +
-                                    "persona.id_Persona,persona.nombre_Persona,persona.apellidoPaterno_Persona,persona.apellidoMaterno_Persona,persona.fechaNacimiento_Persona,persona.sexo_Persona,persona.telefono_Persona,persona.correo_Persona,persona.id_DireccionFK,\n" +
-                                    "empleado.id_Empleado,empleado.sueldoDia_Empleado,empleado.puesto_Empleado,empleado.id_PersonaFK\n" +
-                                    "FROM empleado\n" +
-                                    "INNER JOIN persona ON empleado.id_PersonaFK=persona.id_Persona\n" +
-                                    "INNER JOIN direccion ON persona.id_DireccionFK=direccion.id_Direccion";
+        String sqlBuscarEmpleados="SELECT Direccion.id_Direccion,Direccion.pais_Direccion,Direccion.estado_Direccion,Direccion.municipio_Direccion,Direccion.calle_Direccion,Direccion.colonia_Direccion,Direccion.codigoPostal_Direccion,Direccion.numeroExterior_Direccion,Direccion.numeroInterior_Direccion,\n" +
+                                    "Persona.id_Persona,Persona.nombre_Persona,Persona.apellidoPaterno_Persona,Persona.apellidoMaterno_Persona,Persona.fechaNacimiento_Persona,Persona.sexo_Persona,Persona.telefono_Persona,Persona.correo_Persona,Persona.id_DireccionFK,\n" +
+                                    "Empleado.id_Empleado,Empleado.sueldoDia_Empleado,Empleado.puesto_Empleado,Empleado.id_PersonaFK\n" +
+                                    "FROM Empleado\n" +
+                                    "INNER JOIN Persona ON Empleado.id_PersonaFK=Persona.id_Persona\n" +
+                                    "INNER JOIN Direccion ON Persona.id_DireccionFK=Direccion.id_Direccion";
         
-        String sqlBuscarEmpleado="SELECT direccion.id_Direccion,direccion.pais_Direccion,direccion.estado_Direccion,direccion.municipio_Direccion,direccion.calle_Direccion,direccion.colonia_Direccion,direccion.codigoPostal_Direccion,direccion.numeroExterior_Direccion,direccion.numeroInterior_Direccion,\n" +
-                                    "persona.id_Persona,persona.nombre_Persona,persona.apellidoPaterno_Persona,persona.apellidoMaterno_Persona,persona.fechaNacimiento_Persona,persona.sexo_Persona,persona.telefono_Persona,persona.correo_Persona,persona.id_DireccionFK,\n" +
-                                    "empleado.id_Empleado,empleado.sueldoDia_Empleado,empleado.puesto_Empleado,empleado.id_PersonaFK\n" +
-                                    "FROM empleado\n" +
-                                    "INNER JOIN persona ON empleado.id_PersonaFK=persona.id_Persona\n" +
-                                    "INNER JOIN direccion ON persona.id_DireccionFK=direccion.id_Direccion\n"+
-                                    "WHERE persona.nombre_Persona LIKE ?";
+        String sqlBuscarEmpleado="SELECT Direccion.id_Direccion,Direccion.pais_Direccion,Direccion.estado_Direccion,Direccion.municipio_Direccion,Direccion.calle_Direccion,Direccion.colonia_Direccion,Direccion.codigoPostal_Direccion,Direccion.numeroExterior_Direccion,Direccion.numeroInterior_Direccion,\n" +
+                                    "Persona.id_Persona,Persona.nombre_Persona,Persona.apellidoPaterno_Persona,Persona.apellidoMaterno_Persona,Persona.fechaNacimiento_Persona,Persona.sexo_Persona,Persona.telefono_Persona,Persona.correo_Persona,Persona.id_DireccionFK,\n" +
+                                    "Empleado.id_Empleado,Empleado.sueldoDia_Empleado,Empleado.puesto_Empleado,Empleado.id_PersonaFK\n" +
+                                    "FROM Empleado\n" +
+                                    "INNER JOIN Persona ON Empleado.id_PersonaFK=Persona.id_Persona\n" +
+                                    "INNER JOIN Direccion ON Persona.id_DireccionFK=Direccion.id_Direccion\n"+
+                                    "WHERE Persona.nombre_Persona LIKE ?";
        
        if (buscar.equals("")) {
 
@@ -291,6 +291,11 @@ public class ConsultaEmpleado implements EmpleadoDAO {
 
     @Override
     public boolean agregarDatos(Empleado t) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean validarCorreo(String correo) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

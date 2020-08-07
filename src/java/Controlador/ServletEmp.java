@@ -84,6 +84,8 @@ public class ServletEmp extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
+        
+        
         accion = request.getParameter("accion");
         usuarioSesion = (Usuario) request.getSession().getAttribute("us");
         empDAO = new ConsultaEmpleado();
@@ -135,9 +137,9 @@ public class ServletEmp extends HttpServlet {
 //                    System.out.println("No Ext "+request.getParameter("nex"));
 //                    System.out.println("No Int "+request.getParameter("nin"));
                     if (empDAO.agregarEmpleado(e)) {
-                        System.out.println("Empleado Agregado Con Exito.");
+                        
                     } else {
-                        System.out.println("Error al agregar Empleado");
+                        
                     }
                 }
                 if (accion.equals("actuaizarEmpleado")) { 
@@ -170,15 +172,6 @@ public class ServletEmp extends HttpServlet {
                 d.setNumeroInterior_Direccion(request.getParameter("nin"));
                 e.getPersonaCliente().setDireccionPersona(d);
                    
-                System.out.println("ID Dir modelo "+d.getId_Direccion());
-                    System.out.println("pais "+request.getParameter("pais")+" modelo: "+d.getPais_Direccion());
-                    System.out.println("estado "+request.getParameter("estado"));
-                    System.out.println("municipio "+request.getParameter("muni"));
-                    System.out.println("colonia "+request.getParameter("col"));
-                    System.out.println("calle "+request.getParameter("call"));
-                    System.out.println("CP "+request.getParameter("cp"));
-                    System.out.println("No Ext "+request.getParameter("nex"));
-                    System.out.println("No Int "+request.getParameter("nin"));
                 
                 e.setId_Empleado(dtosEmpleado.getId_Empleado());
                 e.setPuesto_Empleado(request.getParameter("puesto"));

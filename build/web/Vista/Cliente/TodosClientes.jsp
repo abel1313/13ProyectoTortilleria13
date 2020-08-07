@@ -4,6 +4,7 @@
     Author     : trece
 --%>
 
+<%@page import="Consultas.ConsultaCliente"%>
 <%@page import="Modelo.Cliente"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="Modelo.Usuario"%>
@@ -15,7 +16,9 @@
             
 ArrayList<Cliente>clientes = session.getAttribute("cliente") !=null ? 
 (ArrayList<Cliente>)session.getAttribute("cliente"):new ArrayList();
+
 session.setAttribute("clienteListo", clientes);
+
 %>
 
 <table class="table" style=" color: whitesmoke !important; ">
@@ -30,6 +33,7 @@ session.setAttribute("clienteListo", clientes);
                      <%
                  for (int i = 0; i < clientes.size(); i++) {
                          Cliente c=(Cliente)clientes.get(i);
+                         
                      
              %>
         <tr>

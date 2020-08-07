@@ -14,6 +14,10 @@ $('.agregarCliente').click(function(){
 $('.mostrarCliente').click(function(){
     agregar('./Vista/Cliente/Cliente.jsp');
 });
+$('.ActualizarCliente').click(function(){
+    
+    buscarCli($(this).attr('indice'));
+});
 $('.agregarUsuario').click(()=>{
     
     agregar('./Vista/Usuario/NuevoUsuario.jsp');
@@ -54,6 +58,21 @@ function agregar(vista)
      $(".navbar-collapse").removeClass('show');
 }
 
+var buscarCli = function(buscar)
+{
+    
+    
+     $.ajax({
+        type: 'post',
+        url: './Vista/Cliente/EditarClienteExistente.jsp',
+        data: {"idCli":buscar},
+        success: function (res) {
+            $('.contenedorBody').html(res); 
+            
+        }
+    });
+                
+};
 
 
 

@@ -97,7 +97,9 @@ public class ServletCliente extends HttpServlet {
         if (usuarioSesion != null && usuarioSesion.getRolUsuario().getPermisos().contains(1)) {
 
             if (accion != null) {
+                
                 clienteCRUD = new ConsultaCliente();
+                
                 if (accion.equals("agregarCliente")) {
 
                     cli = new Cliente();
@@ -189,6 +191,7 @@ public class ServletCliente extends HttpServlet {
                     ArrayList buscarCliente = clienteCRUD.buscarTodos(request.getParameter("buscarCliente"));
                     request.getSession().setAttribute("cliente", buscarCliente);
                 }
+                
                 if (accion.equals("selecccionarClienteVenta")) {
                     int valor = Integer.parseInt(request.getParameter("idCliente"));
                     Cliente cl = ((ArrayList<Cliente>) request.getSession().getAttribute("clienteListo")).get(valor);
@@ -253,6 +256,29 @@ public class ServletCliente extends HttpServlet {
                 }
                 if (accion.equals("EditarClienteDts")) {
                     
+                    Cliente cl = (Cliente) request.getSession().getAttribute("EditarClienteZ");
+                    
+                    cl.getPersonaCliente().getDireccionPersona().setPais_Direccion(request.getParameter("Pais"));
+                    cl.getPersonaCliente().getDireccionPersona().setEstado_Direccion(request.getParameter("Estado"));
+                    cl.getPersonaCliente().getDireccionPersona().setMunicipio_Direccion(request.getParameter("Municipio"));
+                    cl.getPersonaCliente().getDireccionPersona().setCalle_Direccion(request.getParameter("Calle"));
+                    cl.getPersonaCliente().getDireccionPersona().setColonia_Direccion(request.getParameter("Colonia"));
+                    cl.getPersonaCliente().getDireccionPersona().setCodigoPostal_Direccion(request.getParameter("Postal"));
+                    cl.getPersonaCliente().getDireccionPersona().setNumeroExterior_Direccion(request.getParameter("Exterior"));
+                    cl.getPersonaCliente().getDireccionPersona().setNumeroInterior_Direccion(request.getParameter("Interior"));
+
+                    cl.getPersonaCliente().setNombre_Persona(request.getParameter("Nombre"));
+                    cl.getPersonaCliente().setPaterno_Persona(request.getParameter("Paterno"));
+                    cl.getPersonaCliente().setMaterno_Persona(request.getParameter("Materno"));
+                    cl.getPersonaCliente().setFechaNacimiento_Persona(request.getParameter("Nacimiento"));
+                    cl.getPersonaCliente().setSexo_Persona(request.getParameter("Sexo"));
+                    cl.getPersonaCliente().setTelefono_Persona(request.getParameter("Telefono"));
+                    cl.getPersonaCliente().setCorreo_Persona(request.getParameter("Correo"));
+                    
+                    if (clienteCRUD.actualizar(cl)) {
+                        
+                        request.getSession().setAttribute("Mensaje", "Se actualizó correctamente");
+                    }
                     
                 }
                 if (accion.equals("validarCorreoClienteEditar")) {

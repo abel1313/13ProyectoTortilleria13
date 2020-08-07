@@ -52,13 +52,18 @@
                     Cliente
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <%
+                       if(usuarioSession.getRolUsuario().getId_RolUduario() == 3 || usuarioSession.getRolUsuario().getId_RolUduario() == 1)
+                       {
+                    %>
                     <a class="dropdown-item agregarCliente" href="#">Agregar</a>
                     <a class="dropdown-item mostrarCliente" href="#">Consultar</a>
                     <%
+                        }
                        if(usuarioSession.getRolUsuario().getId_RolUduario() == 2)
                        {
                     %>
-                    <a class="dropdown-item ActualizarCliente" href="#">Actualizar</a>
+                    <a class="dropdown-item ActualizarCliente" href="#" indice="<%=(usuarioSession.getClienteUsuario().getId_Cliente())%>">Actualizar</a>
                     <%
                         }
                     %>

@@ -45,14 +45,16 @@ var EdiarCliente = ()=>{
         },
         submitHandler: function (form) {
    
-   alert($(form).serialize());
-   return false;
+
  
     $('.dale').prop("disabled",true);
     
     $(".agregarSpiner").addClass("spinner-border");
     $(".agregarSpiner").addClass("spinner-border-sm");
     
+      // alert($(form).serialize());
+      // return false;
+   
             setTimeout(function ()
     {
                 $.ajax({

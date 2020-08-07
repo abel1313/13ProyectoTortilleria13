@@ -187,7 +187,7 @@ public class ConsultaCliente implements ClienteDAO {
             String sqlClientes = "SELECT p.nombre_Persona,p.apellidoPaterno_Persona,p.apellidoMaterno_Persona,p.telefono_Persona ,\n" +
 "                    d.pais_Direccion,cl.id_Cliente,p.fechaNacimiento_Persona ,p.sexo_Persona ,\n" +
 "                    p.correo_Persona,p.id_Persona,d.estado_Direccion,d.municipio_Direccion,d.calle_Direccion,\n" +
-"                    d.colonia_Direccion,d.codigoPostal_Direccion,d.numeroExterior_Direccion,d.numeroInterior_Direccion \n" +
+"                    d.colonia_Direccion,d.codigoPostal_Direccion,d.numeroExterior_Direccion,d.numeroInterior_Direccion,d.id_Direccion \n" +
 "                    FROM Cliente cl\n" +
 "                    INNER JOIN Persona p \n" +
 "                    ON p.id_Persona = cl.id_PersonaFK \n" +
@@ -197,7 +197,7 @@ public class ConsultaCliente implements ClienteDAO {
             String sqlCliente = "SELECT p.nombre_Persona,p.apellidoPaterno_Persona,p.apellidoMaterno_Persona,p.telefono_Persona ,\n" +
 "                    d.pais_Direccion,cl.id_Cliente,p.fechaNacimiento_Persona ,p.sexo_Persona ,\n" +
 "                    p.correo_Persona,p.id_Persona,d.estado_Direccion,d.municipio_Direccion,d.calle_Direccion,\n" +
-"                    d.colonia_Direccion,d.codigoPostal_Direccion,d.numeroExterior_Direccion,d.numeroInterior_Direccion \n" +
+"                    d.colonia_Direccion,d.codigoPostal_Direccion,d.numeroExterior_Direccion,d.numeroInterior_Direccion,d.id_Direccion \n" +
 "                    FROM Cliente cl\n" +
 "                    INNER JOIN Persona p \n" +
 "                    ON p.id_Persona = cl.id_PersonaFK \n" +
@@ -237,6 +237,7 @@ public class ConsultaCliente implements ClienteDAO {
                 cli.getPersonaCliente().getDireccionPersona().setCodigoPostal_Direccion(rs.getString(15));
                 cli.getPersonaCliente().getDireccionPersona().setNumeroExterior_Direccion(rs.getString(16));
                 cli.getPersonaCliente().getDireccionPersona().setNumeroInterior_Direccion(rs.getString(17));
+                cli.getPersonaCliente().getDireccionPersona().setId_Direccion(rs.getInt(18));
                 
                 guardarCliente.add(cli);
             }
@@ -334,8 +335,59 @@ public class ConsultaCliente implements ClienteDAO {
     }
 
     @Override
-    public boolean actualizar(Cliente actualizar) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean actualizar(Cliente a) {
+        try {
+            conDB = new ConexionDB();
+            conexion = conDB.conexionDB();
+            String sqlActualizarDireccion = "UPDATE Direccion SET pais_Direccion = ?, estado_Direccion = ?, municipio_Direccion = ?,\n"
+                    + "calle_Direccion = ?,colonia_Direccion = ?, codigoPostal_Direccion = ?, numeroExterior_Direccion = ?,\n"
+                    + "numeroInterior_Direccion = ? WHERE id_Direccion = ?";
+            String sqlActualizarPersona = "UPDATE Persona SET nombre_Persona = ?, apellidoPaterno_Persona = ?, "
+                    + "apellidoMaterno_Persona = ?, fechaNacimiento_Persona = ?,"
+                    + "sexo_Persona = ?, telefono_Persona = ?, correo_Persona = ? WHERE id_Persona =?";
+            String sqlActualizarCliente = "UPDATE Cliente SET id_PersonaFK = ? WHERE id_Cliente = ?";
+                ps = conexion.prepareStatement(sqlActualizarDireccion);
+                ps.setString(1, a.getPersonaCliente().getDireccionPersona().getPais_Direccion());
+                ps.setString(2, a.getPersonaCliente().getDireccionPersona().getEstado_Direccion());
+                ps.setString(3, a.getPersonaCliente().getDireccionPersona().getMunicipio_Direccion());
+                ps.setString(4, a.getPersonaCliente().getDireccionPersona().getCalle_Direccion());
+                ps.setString(5, a.getPersonaCliente().getDireccionPersona().getColonia_Direccion());
+                ps.setString(6, a.getPersonaCliente().getDireccionPersona().getCodigoPostal_Direccion());
+                ps.setString(7, a.getPersonaCliente().getDireccionPersona().getNumeroExterior_Direccion());
+                ps.setString(8, a.getPersonaCliente().getDireccionPersona().getNumeroInterior_Direccion());
+                ps.setInt(9, a.getPersonaCliente().getDireccionPersona().getId_Direccion());
+                ps.executeUpdate();
+            
+                ps = conexion.prepareStatement(sqlActualizarPersona);
+                ps.setString(1, a.getPersonaCliente().getNombre_Persona());
+                ps.setString(2, a.getPersonaCliente().getPaterno_Persona());
+                ps.setString(3, a.getPersonaCliente().getMaterno_Persona());
+                ps.setString(4, a.getPersonaCliente().getFechaNacimiento_Persona());
+                ps.setString(5, a.getPersonaCliente().getSexo_Persona());
+                ps.setString(6, a.getPersonaCliente().getTelefono_Persona());
+                ps.setString(7, a.getPersonaCliente().getCorreo_Persona());
+                ps.setInt(8, a.getPersonaCliente().getId_Persona());
+                ps.executeUpdate();
+                
+                  ps = conexion.prepareStatement(sqlActualizarCliente);
+                  ps.setInt(1, a.getPersonaCliente().getId_Persona());
+                  ps.setInt(2, a.getId_Cliente());
+                return true;
+            
+        } catch (SQLException ex) {
+            System.out.println("Error al actualizar ");
+            Logger.getLogger(ConsultaCliente.class.getName()).log(Level.SEVERE, null, ex);
+             return false;
+        } finally {
+            try {
+                ps.close();
+                
+                conexion.close();
+            } catch (SQLException ex) {
+                System.out.println("error cerrar conexiones ConsultaCliente " + ex.getMessage());
+                Logger.getLogger(ConsultaCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @Override
@@ -421,6 +473,7 @@ public class ConsultaCliente implements ClienteDAO {
     @Override
     public boolean validarCorreoActualizar(String correo, int id) {
                try {
+                   
             conDB = new ConexionDB();
             conexion = conDB.conexionDB();
             String sqlCorreoUsuario = "SELECT p.id_Persona \n"
@@ -432,8 +485,10 @@ public class ConsultaCliente implements ClienteDAO {
             ps.setInt(2, id);
             rs = ps.executeQuery();
             if (rs != null && rs.next()) {
+                
                 return true;
             } else {
+                
                 return false;
             }
 
@@ -451,6 +506,67 @@ public class ConsultaCliente implements ClienteDAO {
                 Logger.getLogger(ConsultaCliente.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+    public Cliente cli(int id){
+        Cliente cli = new Cliente();
+        try{
+            conDB = new ConexionDB();
+            conexion = conDB.conexionDB();
+                        String sqlCliente = "SELECT p.nombre_Persona,p.apellidoPaterno_Persona,p.apellidoMaterno_Persona,p.telefono_Persona ,\n" +
+                        "d.pais_Direccion,cl.id_Cliente,p.fechaNacimiento_Persona ,p.sexo_Persona ,\n" +
+                        "p.correo_Persona,p.id_Persona,d.estado_Direccion,d.municipio_Direccion,d.calle_Direccion,\n" +
+                        "d.colonia_Direccion,d.codigoPostal_Direccion,d.numeroExterior_Direccion,d.numeroInterior_Direccion,d.id_Direccion\n" +
+                        "FROM Cliente cl\n" +
+                        "INNER JOIN Persona p \n" +
+                        "ON p.id_Persona = cl.id_PersonaFK \n" +
+                        "INNER JOIN Direccion d \n" +
+                        "ON d.id_Direccion = p.id_DireccionFK \n" +
+                        "WHERE cl.id_Cliente = ? LIMIT 1";
+
+                ps = conexion.prepareStatement(sqlCliente);
+                ps.setInt(1, id);
+                rs = ps.executeQuery();
+
+            if (rs != null && rs.next()) {
+                
+
+                cli.getPersonaCliente().setNombre_Persona(rs.getString(1));
+                cli.getPersonaCliente().setPaterno_Persona(rs.getString(2));
+                cli.getPersonaCliente().setMaterno_Persona(rs.getString(3));
+                cli.getPersonaCliente().setTelefono_Persona(rs.getString(4));
+                cli.getPersonaCliente().getDireccionPersona().setPais_Direccion(rs.getString(5));
+                cli.setId_Cliente(rs.getInt(6));
+                cli.getPersonaCliente().setFechaNacimiento_Persona(rs.getString(7));
+                cli.getPersonaCliente().setSexo_Persona(rs.getString(8));
+                cli.getPersonaCliente().setCorreo_Persona(rs.getString(9));
+                cli.getPersonaCliente().setId_Persona(rs.getInt(10));
+                cli.getPersonaCliente().getDireccionPersona().setEstado_Direccion(rs.getString(11));
+                cli.getPersonaCliente().getDireccionPersona().setMunicipio_Direccion(rs.getString(12));
+                cli.getPersonaCliente().getDireccionPersona().setCalle_Direccion(rs.getString(13));
+                cli.getPersonaCliente().getDireccionPersona().setColonia_Direccion(rs.getString(14));
+                cli.getPersonaCliente().getDireccionPersona().setCodigoPostal_Direccion(rs.getString(15));
+                cli.getPersonaCliente().getDireccionPersona().setNumeroExterior_Direccion(rs.getString(16));
+                cli.getPersonaCliente().getDireccionPersona().setNumeroInterior_Direccion(rs.getString(17));
+                cli.getPersonaCliente().getDireccionPersona().setId_Direccion(rs.getInt(18));
+                
+                
+            }
+
+        } catch (SQLException ex) {
+            System.out.println("Error Array CLiente Consulta Cliente " + ex.getMessage());
+            Logger.getLogger(ConsultaCliente.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            try {
+                ps.close();
+                rs.close();
+                conexion.close();
+            } catch (SQLException ex) {
+                System.out.println("error cerrar conexiones ConsultaCliente " + ex.getMessage());
+                Logger.getLogger(ConsultaCliente.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return cli;
     }
 
 }
